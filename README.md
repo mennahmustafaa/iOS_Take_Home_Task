@@ -104,6 +104,21 @@ xcodebuild test \
 Favourites and orders use a **lightweight local store** behind protocols (`LocalPersistenceService`). Catalogue cache uses a disk JSON file. No credentials or sensitive data are stored. This keeps the project buildable under the current MainActor / concurrency compiler settings without SwiftData runtime crashes, while still meeting the "justified lightweight persistence + protocol boundary" requirement.
 
 ---
+## Networking & Concurrency
+
+Networking is implemented using URLSession and Swift Concurrency (async/await).
+
+Search input is debounced by 300ms to avoid unnecessary requests.
+
+Search uses the DummyJSON search endpoint.
+
+Obsolete search responses are ignored using a generation token, ensuring an older request cannot overwrite a newer query.
+
+Pagination uses the API's skip and limit parameters instead of repeatedly fetching the entire catalogue.
+
+UI-related state updates are handled by @MainActor ViewModels.
+
+Network failures are surfaced through application error state
 
 ## UX feedback (design parity)
 
@@ -122,7 +137,7 @@ Matches the HTML prototype toast pattern, plus a confirmation alert for orders:
 - Product decoding maps `thumbnail` → `image` and tolerates missing optional fields.
 - Search is debounced (300ms) and uses the DummyJSON search endpoint; obsolete responses are ignored via a generation token.
 - Service fee is fixed at 5%; totals are rounded to two decimal places.
-
+- Orders are local only; no real payment or backend order API is required.
 ### Would improve with more time
 
 - Explicit cache TTL / stale-while-revalidate
@@ -132,11 +147,144 @@ Matches the HTML prototype toast pattern, plus a confirmation alert for orders:
 
 ---
 
+## Product Details & Ordering
+
+Product details include the available product information and image gallery.
+
+Users can:
+
+Mark or unmark a product as a favourite.
+
+Select a quantity between 1 and the available stock.
+
+See the live order total.
+
+Confirm a local order.
+
+The order calculation is:
+
+Subtotal = Product Price × Quantity
+Service Fee = Subtotal × 5%
+Final Total = Subtotal + Service Fee
+
+Totals are rounded to two decimal places.
+
+Products with zero stock cannot be ordered, and quantities exceeding available stock are prevented.
+
+Repeated confirmation is protected so that only one local order is created.
+
+Each confirmed order contains a unique ID and timestamp.
+
+Error & Edge-Case Handling
+
+Case
+
+Behaviour
+
+No internet + cache exists
+
+Cached catalogue is displayed with an offline/stale indicator
+
+No internet + no cache
+
+Error state with Retry
+
+Rapid search changes
+
+Latest query wins; obsolete responses are ignored
+
+Empty result
+
+Purposeful empty state
+
+Stock = 0
+
+Ordering is disabled
+
+Quantity exceeds stock
+
+Confirmation is prevented
+
+Repeated confirmation
+
+Only one local order is created
+
+Missing/partial API fields
+
+Optional data is decoded safely with display fallbacks
 ## AI disclosure
 
-Cursor AI assisted with scaffolding, UI polish against the HTML prototype, decoding/filter fixes, toast/alert UX, tests. All networking, pricing, concurrency, and persistence behaviour was reviewed and verified against the DummyJSON API and the candidate brief.
+Cursor AI assisted with scaffolding, decoding/filter fixes, toast/alert UX, tests. persistence behaviour was reviewed and verified against the DummyJSON API and the candidate brief.
 
 ---
+## Testing
+
+The project includes automated tests covering business logic, presentation state, repository behaviour, and search concurrency.
+
+Tests cover:
+
+Price calculation
+
+Service fee calculation
+
+Two-decimal rounding
+
+Quantity validation against available stock
+
+Search behaviour
+
+Category filtering
+
+Minimum-rating filtering
+
+Price sorting
+
+Rating sorting
+
+ViewModel loading state
+
+ViewModel success state
+
+ViewModel empty state
+
+ViewModel error state
+
+Repository behaviour using a mock network service
+
+Search concurrency to ensure an obsolete response cannot replace the latest result
+
+Tests are located in TripStoreTests/.
+
+Run tests using Product → Test (⌘U) in Xcode, or:
+
+xcodebuild test \
+  -project "iOS task/iOS task.xcodeproj" \
+  -scheme "iOS task" \
+  -destination "platform=iOS Simulator,name=iPhone 17"
+
+## Accessibility
+
+The application is designed to support Dynamic Type and provides meaningful accessibility labels for primary controls and product content.
+
+----------
+## Getting Started
+
+git clone https://github.com/mennahmustafaa/iOS_Take_Home_Task.git
+open "iOS task.xcodeproj"
+
+Setup
+
+Open iOS task/iOS task.xcodeproj in Xcode.
+
+Select the iOS task scheme.
+
+Select an iOS 16+ Simulator or device.
+
+Run with Cmd+R.
+
+Run tests with Cmd+U.
+
+No API keys or additional credentials are required.
 
 ## Known limitations
 
