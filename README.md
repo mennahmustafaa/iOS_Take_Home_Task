@@ -2,6 +2,12 @@
 
 A SwiftUI e-commerce app for browsing products, managing favourites, and placing orders with local persistence. powered by DummyJSON, with offline favourites/orders, search/filter/sort, and a local booking-style checkout.
 
+https://github.com/user-attachments/assets/11c90b97-003c-4718-b4c3-b5f8f4e8307f
+
+
+
+https://github.com/user-attachments/assets/02f2796d-de84-4781-ad04-9254ab4a9235
+
 
 ## Architecture
 
