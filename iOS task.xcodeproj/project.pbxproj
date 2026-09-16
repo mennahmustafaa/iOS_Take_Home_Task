@@ -6,8 +6,27 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXTargetDependency section */
+		30CE8D4930596A8E00BDE52C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 30CE8D4130596A8E00BDE52C /* iOS taskTests */;
+			targetProxy = 30CE8D4830596A8E00BDE52C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXContainerItemProxy section */
+		30CE8D4830596A8E00BDE52C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 30CE8D2A30596A8C00BDE52C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 30CE8D3130596A8C00BDE52C;
+			remoteInfo = "iOS task";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		30CE8D3230596A8C00BDE52C /* iOS task.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS task.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		30CE8D4030596A8E00BDE52C /* iOS taskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS taskTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +35,22 @@
 			path = "iOS task";
 			sourceTree = "<group>";
 		};
+		30CE8D4A30596A8E00BDE52C /* iOS taskTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "iOS taskTests";
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		30CE8D2F30596A8C00BDE52C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30CE8D4330596A8E00BDE52C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				30CE8D3430596A8C00BDE52C /* iOS task */,
+				30CE8D4A30596A8E00BDE52C /* iOS taskTests */,
 				30CE8D3330596A8C00BDE52C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				30CE8D3230596A8C00BDE52C /* iOS task.app */,
+				30CE8D4030596A8E00BDE52C /* iOS taskTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -59,6 +92,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				30CE8D4930596A8E00BDE52C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				30CE8D3430596A8C00BDE52C /* iOS task */,
@@ -69,6 +103,28 @@
 			productName = "iOS task";
 			productReference = 30CE8D3230596A8C00BDE52C /* iOS task.app */;
 			productType = "com.apple.product-type.application";
+		};
+		30CE8D4130596A8E00BDE52C /* iOS taskTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30CE8D4530596A8E00BDE52C /* Build configuration list for PBXNativeTarget "iOS taskTests" */;
+			buildPhases = (
+				30CE8D4230596A8E00BDE52C /* Sources */,
+				30CE8D4330596A8E00BDE52C /* Frameworks */,
+				30CE8D4430596A8E00BDE52C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				30CE8D4A30596A8E00BDE52C /* iOS taskTests */,
+			);
+			name = "iOS taskTests";
+			packageProductDependencies = (
+			);
+			productName = "iOS taskTests";
+			productReference = 30CE8D4030596A8E00BDE52C /* iOS taskTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -82,6 +138,10 @@
 				TargetAttributes = {
 					30CE8D3130596A8C00BDE52C = {
 						CreatedOnToolsVersion = 26.1.1;
+					};
+					30CE8D4130596A8E00BDE52C = {
+						CreatedOnToolsVersion = 26.1.1;
+						TestTargetID = 30CE8D3130596A8C00BDE52C;
 					};
 				};
 			};
@@ -100,6 +160,7 @@
 			projectRoot = "";
 			targets = (
 				30CE8D3130596A8C00BDE52C /* iOS task */,
+				30CE8D4130596A8E00BDE52C /* iOS taskTests */,
 			);
 		};
 /* End PBXProject section */
@@ -112,10 +173,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		30CE8D4430596A8E00BDE52C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		30CE8D2E30596A8C00BDE52C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30CE8D4230596A8E00BDE52C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -177,7 +252,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -234,7 +309,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -270,7 +345,7 @@
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.9;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -301,8 +376,68 @@
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.9;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		30CE8D4630596A8E00BDE52C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mennah.iOS-taskTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS task.app/iOS task";
+			};
+			name = Debug;
+		};
+		30CE8D4730596A8E00BDE52C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "mennah.iOS-taskTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS task.app/iOS task";
 			};
 			name = Release;
 		};
@@ -323,6 +458,15 @@
 			buildConfigurations = (
 				30CE8D3E30596A8E00BDE52C /* Debug */,
 				30CE8D3F30596A8E00BDE52C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		30CE8D4530596A8E00BDE52C /* Build configuration list for PBXNativeTarget "iOS taskTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30CE8D4630596A8E00BDE52C /* Debug */,
+				30CE8D4730596A8E00BDE52C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
