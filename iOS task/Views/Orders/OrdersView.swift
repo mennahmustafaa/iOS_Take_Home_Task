@@ -2,6 +2,8 @@ import SwiftUI
 
 struct OrdersView: View {
     @ObservedObject private var vm = OrdersViewModel.shared
+    @ScaledMetric(relativeTo: .title) private var headerSize: CGFloat = 28
+    @ScaledMetric(relativeTo: .largeTitle) private var emptyIconSize: CGFloat = 38
 
     var body: some View {
         NavigationStack {
@@ -30,10 +32,10 @@ struct OrdersView: View {
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text("Orders")
-                .font(.system(size: 28, weight: .black, design: .rounded))
+                .font(.system(size: headerSize, weight: .black, design: .rounded))
                 .foregroundStyle(Theme.primary)
             Text("Local order history · available offline")
-                .font(.system(size: 12))
+                .font(.footnote)
                 .foregroundStyle(Theme.muted)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -44,7 +46,7 @@ struct OrdersView: View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: "checkmark.circle.fill")
             Text("Offline-ready")
-                .font(.system(size: 11, weight: .semibold))
+                .font(.caption.bold())
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -61,12 +63,12 @@ struct OrdersView: View {
     private var emptyState: some View {
         VStack(spacing: 12) {
             Image(systemName: "shippingbox")
-                .font(.system(size: 38))
+                .font(.system(size: emptyIconSize))
                 .foregroundStyle(Theme.muted)
             Text("No orders yet")
-                .font(.system(size: 16, weight: .semibold))
+                .font(.headline)
             Text("Your orders will appear here.")
-                .font(.system(size: 12))
+                .font(.footnote)
                 .foregroundStyle(Theme.muted)
         }
         .frame(maxWidth: .infinity)
@@ -88,11 +90,11 @@ struct OrderCard: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text("\(order.id) · \(formattedDate(order.timestamp))")
-                    .font(.system(size: 11))
+                    .font(.caption)
                     .foregroundStyle(Theme.muted)
                 Spacer()
                 Text("Confirmed")
-                    .font(.system(size: 10, weight: .bold))
+                    .font(.caption2.bold())
                     .foregroundStyle(Theme.success)
                     .padding(.horizontal, 7)
                     .padding(.vertical, 5)
@@ -107,10 +109,10 @@ struct OrderCard: View {
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(order.productTitle)
-                        .font(.system(size: 13, weight: .bold))
+                        .font(.subheadline.bold())
                         .foregroundStyle(Theme.ink)
                     Text("Quantity \(order.quantity) · \(order.productCategory)")
-                        .font(.system(size: 11))
+                        .font(.caption)
                         .foregroundStyle(Theme.muted)
                 }
             }
@@ -119,10 +121,10 @@ struct OrderCard: View {
 
             HStack {
                 Text("Final total")
-                    .font(.system(size: 13))
+                    .font(.subheadline)
                 Spacer()
                 Text(order.total, format: .currency(code: "USD"))
-                    .font(.system(size: 13, weight: .bold))
+                    .font(.subheadline.bold())
             }
         }
         .padding(14)

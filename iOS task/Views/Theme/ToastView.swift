@@ -27,7 +27,7 @@ struct ToastBanner: View {
 
     var body: some View {
         Text(message)
-            .font(.system(size: 12, weight: .bold))
+            .font(.footnote.bold())
             .foregroundStyle(.white)
             .multilineTextAlignment(.leading)
             .frame(maxWidth: .infinity, alignment: .leading)

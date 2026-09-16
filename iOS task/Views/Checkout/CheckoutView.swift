@@ -21,7 +21,7 @@ struct CheckoutView: View {
                 orderCard
                 confirmButton
                 Text("Confirm once to save a unique order ID and timestamp.")
-                    .font(.system(size: 11))
+                    .font(.caption)
                     .foregroundStyle(Theme.muted)
                     .multilineTextAlignment(.center)
             }
@@ -55,10 +55,10 @@ struct CheckoutView: View {
     private var reviewSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Review before confirming")
-                .font(.system(size: 18, weight: .bold))
+                .font(.title3.bold())
                 .foregroundStyle(Theme.ink)
             Text("Local booking-style order · no payment or backend order is required.")
-                .font(.system(size: 12))
+                .font(.footnote)
                 .foregroundStyle(Theme.muted)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -74,15 +74,15 @@ struct CheckoutView: View {
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(product.title)
-                        .font(.system(size: 13, weight: .bold))
+                        .font(.subheadline.bold())
                     Text("\(product.categoryDisplayName) · Quantity \(quantity)")
-                        .font(.system(size: 11))
+                        .font(.caption)
                         .foregroundStyle(Theme.muted)
                     HStack(spacing: 4) {
                         Text(product.price, format: .currency(code: "USD"))
-                            .font(.system(size: 13, weight: .heavy))
+                            .font(.subheadline.bold())
                         Text("each")
-                            .font(.system(size: 11))
+                            .font(.caption)
                             .foregroundStyle(Theme.muted)
                     }
                 }
@@ -95,10 +95,10 @@ struct CheckoutView: View {
 
             HStack {
                 Text("Final total")
-                    .font(.system(size: 16, weight: .heavy))
+                    .font(.headline)
                 Spacer()
                 Text(total, format: .currency(code: "USD"))
-                    .font(.system(size: 16, weight: .heavy))
+                    .font(.headline)
             }
         }
         .padding(15)
@@ -119,7 +119,7 @@ struct CheckoutView: View {
                 .fontWeight(bold ? .bold : .regular)
                 .foregroundStyle(muted ? Theme.muted : Theme.ink)
         }
-        .font(.system(size: 13))
+        .font(.subheadline)
     }
 
     private var confirmButton: some View {
@@ -137,7 +137,7 @@ struct CheckoutView: View {
             }
         } label: {
             Text(didConfirm ? "Order confirmed" : "Confirm order · \(total, format: .currency(code: "USD"))")
-                .font(.system(size: 14, weight: .bold))
+                .font(.body.bold())
                 .foregroundStyle((isConfirming || didConfirm) ? Color(red: 125/255, green: 135/255, blue: 148/255) : .white)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)

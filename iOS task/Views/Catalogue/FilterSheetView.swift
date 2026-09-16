@@ -18,14 +18,14 @@ struct FilterSheetView: View {
             VStack(spacing: 0) {
                 HStack {
                     Text("Filter & Sort")
-                        .font(.system(size: 20, weight: .bold))
+                        .font(.title3.bold())
                         .foregroundStyle(Theme.ink)
                     Spacer()
                     Button("Reset") {
                         vm.resetFilters()
                         ToastCenter.shared.show("Filters reset")
                     }
-                    .font(.system(size: 13, weight: .bold))
+                    .font(.subheadline.bold())
                     .foregroundStyle(Theme.primary)
                     .buttonStyle(.plain)
                     .accessibilityLabel("Reset filters")
@@ -52,7 +52,7 @@ struct FilterSheetView: View {
                     ToastCenter.shared.show("Filters applied")
                 } label: {
                     Text("Show results")
-                        .font(.system(size: 14, weight: .bold))
+                        .font(.body.bold())
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
@@ -71,7 +71,7 @@ struct FilterSheetView: View {
     private var categoryPicker: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Category")
-                .font(.system(size: 13, weight: .bold))
+                .font(.subheadline.bold())
                 .foregroundStyle(Theme.ink)
 
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 110), spacing: 8)], alignment: .leading, spacing: 8) {
@@ -82,7 +82,7 @@ struct FilterSheetView: View {
                         vm.category = cat.slug
                     } label: {
                         Text(cat.name)
-                            .font(.system(size: 12, weight: .semibold))
+                            .font(.footnote.bold())
                             .foregroundStyle(selected ? Theme.primary : Theme.ink)
                             .lineLimit(1)
                             .padding(.horizontal, 12)
@@ -107,11 +107,11 @@ struct FilterSheetView: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text("Minimum rating")
-                    .font(.system(size: 13, weight: .bold))
+                    .font(.subheadline.bold())
                     .foregroundStyle(Theme.ink)
                 Spacer()
                 Text("\(vm.minRating, specifier: "%.1f")+")
-                    .font(.system(size: 13, weight: .bold))
+                    .font(.subheadline.bold())
                     .foregroundStyle(Theme.primary)
             }
             Slider(value: $vm.minRating, in: 0...5, step: 0.5)
@@ -124,7 +124,7 @@ struct FilterSheetView: View {
     private var sortPicker: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Sort by")
-                .font(.system(size: 13, weight: .bold))
+                .font(.subheadline.bold())
                 .foregroundStyle(Theme.ink)
 
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), spacing: 8)], alignment: .leading, spacing: 8) {
@@ -134,7 +134,7 @@ struct FilterSheetView: View {
                         vm.sort = option
                     } label: {
                         Text(option.displayName)
-                            .font(.system(size: 12, weight: .semibold))
+                            .font(.footnote.bold())
                             .foregroundStyle(selected ? Theme.primary : Theme.ink)
                             .lineLimit(1)
                             .padding(.horizontal, 12)

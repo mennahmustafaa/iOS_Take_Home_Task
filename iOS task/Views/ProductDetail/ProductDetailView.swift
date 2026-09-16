@@ -5,6 +5,7 @@ struct ProductDetailView: View {
     @StateObject private var vm: ProductDetailViewModel
     @ObservedObject private var favouritesVM = FavouritesViewModel.shared
     @State private var showCheckout = false
+    @ScaledMetric(relativeTo: .title2) private var priceSize: CGFloat = 26
 
     init(product: ProductEntity) {
         self.product = product
@@ -69,7 +70,7 @@ struct ProductDetailView: View {
                         VStack {
                             Spacer()
                             Text("OUT OF STOCK")
-                                .font(.system(size: 11, weight: .heavy))
+                                .font(.caption.bold())
                                 .tracking(0.8)
                                 .foregroundStyle(.white)
                                 .padding(.horizontal, 12)
@@ -122,23 +123,23 @@ struct ProductDetailView: View {
     private var detailSection: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text(product.categoryDisplayName)
-                .font(.system(size: 11, weight: .bold))
+                .font(.caption.bold())
                 .foregroundStyle(Theme.primary)
 
             Text(product.title)
-                .font(.system(size: 24, weight: .bold))
+                .font(.title2.bold())
                 .foregroundStyle(Theme.ink)
 
             Text(product.description.isEmpty ? "No description available." : product.description)
-                .font(.system(size: 13))
+                .font(.subheadline)
                 .foregroundStyle(Theme.muted)
                 .fixedSize(horizontal: false, vertical: true)
 
             Text(product.price, format: .currency(code: "USD"))
-                .font(.system(size: 26, weight: .heavy))
+                .font(.system(size: priceSize, weight: .heavy))
 
             Text("★ \(String(format: "%.2f", product.rating)) · Rated by travellers")
-                .font(.system(size: 12, weight: .semibold))
+                .font(.footnote.bold())
                 .foregroundStyle(Color(red: 134/255, green: 98/255, blue: 27/255))
 
             HStack(spacing: 8) {
@@ -149,11 +150,11 @@ struct ProductDetailView: View {
 
             VStack(alignment: .leading, spacing: 10) {
                 Text("Quantity")
-                    .font(.system(size: 13, weight: .bold))
+                    .font(.subheadline.bold())
                 Text(product.stock == 0
                      ? "Ordering is disabled because this item is out of stock."
                      : "Choose from 1 to available stock.")
-                    .font(.system(size: 12))
+                    .font(.footnote)
                     .foregroundStyle(Theme.muted)
 
                 HStack(spacing: 12) {
@@ -170,7 +171,7 @@ struct ProductDetailView: View {
                     .accessibilityLabel("Decrease quantity")
 
                     Text("\(vm.quantity)")
-                        .font(.system(size: 14, weight: .bold))
+                        .font(.body.bold())
                         .frame(minWidth: 24)
                         .accessibilityLabel("Quantity \(vm.quantity)")
 
@@ -199,7 +200,7 @@ struct ProductDetailView: View {
                 }
             } label: {
                 Text(product.isOutOfStock ? "Out of stock — can't order" : "Continue · \(vm.totalWithFee, format: .currency(code: "USD"))")
-                    .font(.system(size: 14, weight: .bold))
+                    .font(.body.bold())
                     .foregroundStyle(vm.canOrder ? .white : Color(red: 125/255, green: 135/255, blue: 148/255))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
@@ -217,10 +218,10 @@ struct ProductDetailView: View {
     private func infoTile(title: String, subtitle: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
-                .font(.system(size: 12, weight: .bold))
+                .font(.footnote.bold())
                 .foregroundStyle(Theme.ink)
             Text(subtitle)
-                .font(.system(size: 10))
+                .font(.caption2)
                 .foregroundStyle(Theme.muted)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

@@ -4,6 +4,8 @@ struct CatalogueView: View {
     @ObservedObject private var viewModel = CatalogueViewModel.shared
     @ObservedObject private var favouritesVM = FavouritesViewModel.shared
     @State private var showFilterSheet = false
+    @ScaledMetric(relativeTo: .title) private var headerSize: CGFloat = 28
+    @ScaledMetric(relativeTo: .largeTitle) private var heroIconSize: CGFloat = 38
 
     var body: some View {
         NavigationStack {
@@ -59,9 +61,9 @@ struct CatalogueView: View {
                 Text("Store")
                     .foregroundStyle(Theme.primary)
             }
-            .font(.system(size: 28, weight: .black, design: .rounded))
+            .font(.system(size: headerSize, weight: .black, design: .rounded))
             Text("Travel lighter. Choose better.")
-                .font(.system(size: 12))
+                .font(.footnote)
                 .foregroundStyle(Theme.muted)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -74,7 +76,7 @@ struct CatalogueView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(Theme.muted)
             TextField("Search travel essentials…", text: $viewModel.searchText)
-                .font(.system(size: 14))
+                .font(.body)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
                 .accessibilityLabel("Search products")
@@ -93,7 +95,7 @@ struct CatalogueView: View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: "wifi.exclamationmark")
             Text("You're offline · Showing your last successful catalogue. It may be stale.")
-                .font(.system(size: 11, weight: .semibold))
+                .font(.caption.bold())
                 .fixedSize(horizontal: false, vertical: true)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -112,13 +114,13 @@ struct CatalogueView: View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: "exclamationmark.triangle.fill")
             Text("We couldn't load the catalogue. Check your connection and try again.")
-                .font(.system(size: 11, weight: .semibold))
+                .font(.caption.bold())
                 .fixedSize(horizontal: false, vertical: true)
             Spacer(minLength: 0)
             Button("Retry") {
                 Task { await viewModel.retry() }
             }
-            .font(.system(size: 12, weight: .bold))
+            .font(.footnote.bold())
             .foregroundStyle(Theme.primary)
             .buttonStyle(.plain)
         }
@@ -136,21 +138,21 @@ struct CatalogueView: View {
     private var heroBanner: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Travel edit")
-                .font(.system(size: 10, weight: .bold))
+                .font(.caption2.bold())
                 .tracking(1.2)
                 .textCase(.uppercase)
                 .opacity(0.75)
             Text("Smart picks for your next journey.")
-                .font(.system(size: 24, weight: .black, design: .rounded))
+                .font(.title2.bold())
                 .fixedSize(horizontal: false, vertical: true)
             Text("Curated accessories, honest ratings and simple local checkout.")
-                .font(.system(size: 12))
+                .font(.footnote)
                 .opacity(0.85)
                 .fixedSize(horizontal: false, vertical: true)
             Button("Explore filters →") {
                 showFilterSheet = true
             }
-            .font(.system(size: 12, weight: .bold))
+            .font(.footnote.bold())
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
             .background(.white)
@@ -170,7 +172,7 @@ struct CatalogueView: View {
     private var categorySection: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Categories")
-                .font(.system(size: 13, weight: .bold))
+                .font(.subheadline.bold())
                 .foregroundStyle(Theme.ink)
 
             ScrollView(.horizontal, showsIndicators: false) {
@@ -190,7 +192,7 @@ struct CatalogueView: View {
             viewModel.category = slug
         } label: {
             Text(title)
-                .font(.system(size: 12, weight: .semibold))
+                .font(.footnote.bold())
                 .foregroundStyle(selected ? .white : Theme.ink)
                 .padding(.horizontal, 14)
                 .padding(.vertical, 10)
@@ -209,11 +211,11 @@ struct CatalogueView: View {
     private var resultsHeader: some View {
         HStack {
             Text(viewModel.searchText.isEmpty ? "Popular picks" : "Results for “\(viewModel.searchText)”")
-                .font(.system(size: 18, weight: .bold))
+                .font(.title3.bold())
                 .foregroundStyle(Theme.ink)
             Spacer()
             Text("\(viewModel.filteredProducts.count) items")
-                .font(.system(size: 12, weight: .bold))
+                .font(.footnote.bold())
                 .foregroundStyle(Theme.primary)
         }
     }
@@ -246,7 +248,7 @@ struct CatalogueView: View {
                 Text(title)
                     .lineLimit(1)
             }
-            .font(.system(size: 11, weight: .bold))
+            .font(.caption.bold())
             .foregroundStyle(emphasized ? Theme.primary : Theme.ink.opacity(0.75))
             .frame(maxWidth: .infinity)
             .padding(.vertical, 11)
@@ -284,7 +286,7 @@ struct CatalogueView: View {
                             .padding(.vertical, 16)
                     } else {
                         Text("Load more products ↓")
-                            .font(.system(size: 13, weight: .bold))
+                            .font(.subheadline.bold())
                             .foregroundStyle(Theme.primary)
                             .padding(.vertical, 16)
                     }
@@ -294,7 +296,7 @@ struct CatalogueView: View {
                 .accessibilityLabel("Load more products")
             } else if !viewModel.filteredProducts.isEmpty {
                 Text("You've reached the end of the catalogue.")
-                    .font(.system(size: 11))
+                    .font(.caption)
                     .foregroundStyle(Theme.muted)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
@@ -328,19 +330,19 @@ struct CatalogueView: View {
     private var emptyState: some View {
         VStack(spacing: 12) {
             Image(systemName: "magnifyingglass")
-                .font(.system(size: 38))
+                .font(.system(size: heroIconSize))
                 .foregroundStyle(Theme.muted)
             Text("No matches found")
-                .font(.system(size: 16, weight: .semibold))
+                .font(.headline)
             Text("Try a different keyword or clear your filters to discover more products.")
-                .font(.system(size: 12))
+                .font(.footnote)
                 .foregroundStyle(Theme.muted)
                 .multilineTextAlignment(.center)
             Button("Reset filters") {
                 viewModel.resetFilters()
                 ToastCenter.shared.show("Filters reset")
             }
-            .font(.system(size: 12, weight: .bold))
+            .font(.footnote.bold())
             .foregroundStyle(.white)
             .padding(.horizontal, 18)
             .padding(.vertical, 12)
@@ -361,12 +363,12 @@ struct CatalogueView: View {
     private var errorState: some View {
         VStack(spacing: 12) {
             Image(systemName: "icloud.slash")
-                .font(.system(size: 38))
+                .font(.system(size: heroIconSize))
                 .foregroundStyle(Theme.muted)
             Text("Something went wrong")
-                .font(.system(size: 16, weight: .semibold))
+                .font(.headline)
             Text("We couldn't reach the catalogue right now. Your favourites and orders are still available.")
-                .font(.system(size: 12))
+                .font(.footnote)
                 .foregroundStyle(Theme.muted)
                 .multilineTextAlignment(.center)
             Button("Try again") {
@@ -379,7 +381,7 @@ struct CatalogueView: View {
                     }
                 }
             }
-            .font(.system(size: 12, weight: .bold))
+            .font(.footnote.bold())
             .foregroundStyle(.white)
             .padding(.horizontal, 18)
             .padding(.vertical, 12)
@@ -422,7 +424,7 @@ struct ProductCardView: View {
                             VStack {
                                 Spacer()
                                 Text("OUT OF STOCK")
-                                    .font(.system(size: 10, weight: .heavy))
+                                    .font(.caption2.bold())
                                     .tracking(0.6)
                                     .foregroundStyle(.white)
                                     .padding(.horizontal, 10)
@@ -439,7 +441,7 @@ struct ProductCardView: View {
                     ToastCenter.shared.show(wasFavourited ? "Removed from favourites" : "Saved to favourites")
                 } label: {
                     Image(systemName: favouritesVM.isFavourited(product.id) ? "heart.fill" : "heart")
-                        .font(.system(size: 15, weight: .semibold))
+                        .font(.body.bold())
                         .foregroundStyle(favouritesVM.isFavourited(product.id) ? Theme.danger : Theme.ink)
                         .frame(width: 34, height: 34)
                         .background(.white.opacity(0.94))
@@ -456,13 +458,13 @@ struct ProductCardView: View {
 
             VStack(alignment: .leading, spacing: 6) {
                 Text(product.categoryDisplayName)
-                    .font(.system(size: 10, weight: .bold))
+                    .font(.caption2.bold())
                     .foregroundStyle(Theme.muted)
                     .textCase(.uppercase)
                     .lineLimit(1)
 
                 Text(product.title)
-                    .font(.system(size: 13, weight: .bold))
+                    .font(.subheadline.bold())
                     .foregroundStyle(Theme.ink)
                     .lineLimit(2)
                     .multilineTextAlignment(.leading)
@@ -470,11 +472,11 @@ struct ProductCardView: View {
 
                 HStack {
                     Text(product.price, format: .currency(code: "USD"))
-                        .font(.system(size: 15, weight: .heavy))
+                        .font(.body.bold())
                         .foregroundStyle(Theme.ink)
                     Spacer()
                     Text("★ \(String(format: "%.1f", product.rating))")
-                        .font(.system(size: 10, weight: .bold))
+                        .font(.caption2.bold())
                         .padding(.horizontal, 6)
                         .padding(.vertical, 4)
                         .background(Color(red: 1, green: 247/255, blue: 223/255))
@@ -483,7 +485,7 @@ struct ProductCardView: View {
                 }
 
                 Text(stockLabel)
-                    .font(.system(size: 10, weight: .bold))
+                    .font(.caption2.bold())
                     .padding(.horizontal, product.isOutOfStock ? 7 : 0)
                     .padding(.vertical, product.isOutOfStock ? 4 : 0)
                     .foregroundStyle(product.isOutOfStock ? .white : stockColor)
