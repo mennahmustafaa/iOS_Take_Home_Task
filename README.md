@@ -1,15 +1,22 @@
 # TripStore - iOS Take-Home Challenge
 
-A SwiftUI e-commerce app for browsing products, managing favourites, and placing orders with local persistence.
+A SwiftUI e-commerce app for browsing products, managing favourites, and placing orders with local persistence. powered by DummyJSON, with offline favourites/orders, search/filter/sort, and a local booking-style checkout.
+
+https://github.com/user-attachments/assets/11c90b97-003c-4718-b4c3-b5f8f4e8307f
+
+
+
+https://github.com/user-attachments/assets/02f2796d-de84-4781-ad04-9254ab4a9235
+
 
 ## Architecture
 
 - **Models**: `Product`, `Order` entities with `Codable` decoding
 - **DTOs**: `ProductDTO`, `OrderDTO` with `toDomain()` mapping
-- **Services**: `NetworkService` (async/await), `PersistenceService` (UserDefaults + NSLock)
-- **Repositories**: `CatalogueRepository` with disk caching (`CatalogueDiskCache`)
-- **ViewModels**: `@MainActor` ViewModels with `@Published` state, dependency injection via initialisers
-- **Views**: SwiftUI with TabView navigation, Dynamic Type support, VoiceOver accessibility
+- **Services**: `NetworkService` (async/await), `PersistenceService` (UserDefaults)
+- **Repositories**: `CatalogueRepository` with disk caching
+- **ViewModels**: `@MainActor` ViewModels with `@Published` state
+- **Views**: SwiftUI with TabView navigation
 
 ## Features
 
@@ -24,36 +31,13 @@ A SwiftUI e-commerce app for browsing products, managing favourites, and placing
 | Product Detail | `feature/product-detail` | Product info, add-to-cart, favourite toggle |
 | Tests | `feature/tests` | Unit tests for models, DTOs, repositories, viewmodels |
 
-## Accessibility
-
-- **Dynamic Type**: All text uses system text styles (`.caption2`, `.caption`, `.footnote`, `.subheadline`, `.body`, `.headline`, `.title3`, `.title2`) or `@ScaledMetric` for custom display sizes. Text scales with the user's preferred content size.
-- **VoiceOver**: Meaningful accessibility labels on all primary controls and content (search, filters, product cards, favourite toggles, checkout button, order cards).
-
-## Offline & Caching
-
-- **Catalogue cache**: `CatalogueDiskCache` persists products to a JSON file on disk. On network failure, the repository returns the last cached snapshot marked as stale.
-- **Favourites**: Persisted via `UserDefaults` through `LocalPersistenceService` with `NSLock` for thread safety.
-- **Orders**: Persisted locally via `UserDefaults`. No backend required.
-
-## Test Coverage
-
-9 automated unit tests covering:
-
-- Price calculation, rounding, and 5% service fee
-- Quantity validation and stock limits
-- Search, filter, and sort behaviour
-- Presentation states (loading, loaded, empty, error)
-- Repository with mock network and offline cache fallback
-- Obsolete search response cancellation (latest response wins)
-- Favourites persistence and cross-screen sync
-- Order creation and double-submission prevention
-- Defensive JSON decoding with fallback defaults
+Dependency injection uses protocols (`NetworkServiceProtocol`, `CatalogueRepositoryProtocol`, `FavouritesPersisting`, `OrdersPersisting`, `CatalogueCacheProtocol`) so tests can inject mocks. All image loading uses `RemoteProductImage` with `ImageURLFactory` for proper URL encoding.
 
 ## Requirements
 
-- iOS 16.0+
+- iOS 16+
 - Xcode 26.1.1+
-- Swift 5.9+
+- Swift 5.0+
 
 ## Getting Started
 
@@ -62,6 +46,82 @@ git clone https://github.com/mennahmustafaa/iOS_Take_Home_Task.git
 open "iOS task.xcodeproj"
 ```
 
-## AI Disclosure
 
-This project was developed with the assistance of an AI coding tool (OpenCode/Claude) for code generation, debugging, and architecture guidance.
+
+---
+
+## Setup
+
+1. Open `iOS task/iOS task.xcodeproj` in Xcode 15+.
+2. Select the **iOS task** scheme and an iOS Simulator.
+3. Run with **Cmd+R**.
+4. Run tests with **Cmd+U**, or:
+
+```bash
+xcodebuild test \
+  -project "iOS task/iOS task.xcodeproj" \
+  -scheme "iOS task" \
+  -destination "platform=iOS Simulator,name=iPhone 17"
+```
+
+---
+
+
+
+
+---
+
+## Cache & offline policy
+
+- On a successful first-page catalogue load, products are written to a JSON file in Caches.
+- If the network fails and a cache exists, the app shows cached products with a yellow **offline / may be stale** banner.
+- If the network fails and there is no cache, the app shows an actionable error with **Retry**.
+- Favourites and confirmed orders are stored locally and remain available offline.
+- Cache is overwritten on the next successful page-0 fetch (no TTL in this submission).
+
+---
+
+## Persistence choice
+
+Favourites and orders use a **lightweight local store** behind protocols (`LocalPersistenceService`). Catalogue cache uses a disk JSON file. No credentials or sensitive data are stored. This keeps the project buildable under the current MainActor / concurrency compiler settings without SwiftData runtime crashes, while still meeting the “justified lightweight persistence + protocol boundary” requirement.
+
+---
+
+## UX feedback (design parity)
+
+Matches the HTML prototype toast pattern, plus a confirmation alert for orders:
+
+- Order confirmed → toast + alert → Orders tab
+- Favourite add/remove → toast
+- Filters applied / reset → toast
+- Refresh / load more / retry success → toast
+
+---
+
+## Assumptions & trade-offs
+
+- DummyJSON categories arrive as slugs (`beauty`); the UI shows title-cased names and filters against either form.
+- Product decoding maps `thumbnail` → `image` and tolerates missing optional fields.
+- Search is debounced (300ms) and uses the DummyJSON search endpoint; obsolete responses are ignored via a generation token.
+- Service fee is fixed at 5%; totals are rounded to two decimal places.
+
+### Would improve with more time
+
+- Explicit cache TTL / stale-while-revalidate
+- Persist full favourite product snapshots for offline Saved details
+- UI tests for the order journey
+- Structured logging
+
+---
+
+## AI disclosure
+
+Cursor AI assisted with scaffolding, UI polish against the HTML prototype, decoding/filter fixes, toast/alert UX, tests. All networking, pricing, concurrency, and persistence behaviour was reviewed and verified against the DummyJSON API and the candidate brief.
+
+---
+
+## Known limitations
+
+- Image loading uses `RemoteProductImage` with `ImageURLFactory` for proper URL encoding and `URLSession`/`URLCache`.
+- Saved tab shows products that are already present in the loaded/cached catalogue.
+
