@@ -35,7 +35,7 @@ Dependency injection uses protocols (`NetworkServiceProtocol`, `CatalogueReposit
 
 ## Requirements
 
-- iOS 26.1+
+- iOS 16+
 - Xcode 26.1.1+
 - Swift 5.0+
 
