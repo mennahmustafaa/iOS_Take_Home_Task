@@ -260,7 +260,6 @@ Run tests using Product → Test (⌘U) in Xcode, or:
 xcodebuild test \
   -project "iOS task/iOS task.xcodeproj" \
   -scheme "iOS task" \
-  -destination "platform=iOS Simulator,name=iPhone 17"
 
 ## Accessibility
 
